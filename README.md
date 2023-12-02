@@ -12,8 +12,16 @@
 
 程序的主要功能包括地图查看, 区域创建和管理, 面积计算与显示等等. 欢迎下载试用本项目, 以及对本项目提出建议 / 提交 issue 和 pr .
 
-能力所限, 许多功能实现的并不优雅 / 没能达到预想, 敬请谅解.
+能力所限, 您可能在本项目中遇见包括但不限于以下情形: 不优雅的实现方式 / 未完善的功能 / 混乱的逻辑 / 反常的交互 / 漫天飞舞的Bug / 神志不清的作者, 敬请谅解.
 
+于是, 这里是留给可能由于我的代码遭受精神创伤的你的补偿 (bushi
+```
+  ／l、 
+（ﾟ､ 。 ７
+  l、 ~ヽ
+  じしf_, )ノ
+```
+猫猫可爱捏~
 
 ## 功能预览 / 说明
 
@@ -80,7 +88,7 @@ Clone 本存储库, 然后使用 Visual Studio 打开 `fltk_map.sln` .
 下载 `res/wsl/map_main.cpp` 与 `map_test/httplib.h` 并将其放入目标文件夹, 然后使用如下命令编译:
 
 ```
-g++ -fdiagnostics-color=always -std=c++2a -g ./map_main.cpp -lfltk -lfltk_images -lfltk_images -lX11 -pthread -o {target}
+g++ -std=c++2a -g ./map_main.cpp -lfltk -lfltk_images -lfltk_images -lX11 -pthread -o map_main
 ```
 
 > 请注意, `res/wsl/map_main.cpp` 仅为测试使用, 可能不会与最新状态和功能保持同步.
