@@ -16,7 +16,7 @@ namespace area {
         bool fill_areas = true;
         Area* temp;
 
-        Fl_Area(int u, int v, size_t w, size_t h) :
+        Fl_Area(int u, int v, int w, int h) :
             Fl_Box(u, v, w, h), Map(w, h, 1, 15) {
             temp = new Area(w, h, 255, 0, 0, 32);
             temp->set_name("SJTU");

@@ -46,9 +46,9 @@ namespace map {
 
             // Screen coordinate for top left corner of top left tilt
             double xz = lng * tilts_per_side, yz = lat * tilts_per_side;
-            int pixels_per_tilt = tilts::TILT_SIZE * k;
-            int x0 = (int(xz) - xz) * pixels_per_tilt;
-            int y0 = (int(yz) - yz) * pixels_per_tilt;
+            int pixels_per_tilt = static_cast<int>(tilts::TILT_SIZE * k);
+            int x0 = static_cast<int>((int(xz) - xz) * pixels_per_tilt);
+            int y0 = static_cast<int>((int(yz) - yz) * pixels_per_tilt);
 
             // Displaying tilts
             for (int i = 0; i < rows; i++) {
@@ -56,10 +56,10 @@ namespace map {
                     // Index for tilt[i, j]
                     auto ti = tilt0.offset(i, j);
                     // Index correction
-                    if (ti.x >= tilts_per_side) {
-                        ti.x -= tilts_per_side;
+                    if (ti.x >= static_cast<int>(tilts_per_side)) {
+                        ti.x -= static_cast<int>(tilts_per_side);
                     } else if (ti.x < 0) {
-                        ti.x += tilts_per_side;
+                        ti.x += static_cast<int>(tilts_per_side);
                     }
                     // Resized tilt image
                     Fl_Image* pngResized;

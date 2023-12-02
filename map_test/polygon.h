@@ -73,26 +73,26 @@ namespace area {
         return true;
     }
 
-    double hsl_val(double n1, double n2, double hue) {
+    uchar hsl_val(double n1, double n2, double hue) {
         if (hue > 360) {
             hue -= 360;
         } else if (hue < 0) {
             hue += 360;
         }
         if (hue < 60) {
-            return n1 + (n2 - n1) * hue / 60;
+            return static_cast<uchar>((n1 + (n2 - n1) * hue / 60) * 225);
         } else if (hue < 180) {
-            return n2;
+            return static_cast<uchar>(n2 * 255);
         } else if (hue < 240) {
-            return n1 + (n2 - n1) * (240 - hue) / 60;
+            return static_cast<uchar>((n1 + (n2 - n1) * (240 - hue) / 60) * 255);
         } else {
-            return n1;
+            return static_cast<uchar>(n1 * 255);
         }
     }
 
     std::tuple<uchar, uchar, uchar> hsl_to_rgb(double h, double s, double l) {
         double cmax = l <= 0.5 ? l * (1 + s) : l * (1 - s) + s, cmin = 2 * l - cmax;
-        return { hsl_val(cmin,cmax,h + 120) * 255 ,hsl_val(cmin,cmax,h) * 255 ,hsl_val(cmin,cmax,h - 120) * 255 };
+        return { hsl_val(cmin,cmax,h + 120) ,hsl_val(cmin,cmax,h) ,hsl_val(cmin,cmax,h - 120) };
     }
 
     std::tuple<uchar, uchar, uchar> color_generator() {

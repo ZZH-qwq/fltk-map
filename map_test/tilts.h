@@ -53,17 +53,14 @@ namespace tilts {
         int status;
         std::string data;
 
-        TiltFuture(TiltId id) : available(false), id(id) {}
+        TiltFuture(TiltId id) : available(false), status(-1), id(id) {}
 
-        static void makeRequest(httplib::Client* cli, std::string url,
-            TiltFuture* future) {
+        static void makeRequest(httplib::Client* cli, std::string url, TiltFuture* future) {
             if (auto res = cli->Get(url)) {
                 if (res->status == 200) {
                     future->data = std::move(res->body);
                 }
                 future->status = res->status;
-            } else {
-                future->status = -1;
             }
             future->available.store(true);
         }
@@ -110,9 +107,8 @@ namespace tilts {
 
                 if (front->status == 200) {
                     while (cached.size() >= size) {
-                        auto idPop = cached.front();
+                        tilts.erase(cached.front());
                         cached.pop_front();
-                        tilts.erase(idPop);
                     }
 
                     cached.push_back(front->id);

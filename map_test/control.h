@@ -24,7 +24,7 @@ namespace control{
             fl_begin_offscreen(oscr);
             fl_rectf(0, 0, w(), h(), FL_WHITE);
             fl_color(FL_BLACK);
-            int t_h;
+            Fl_Fontsize t_h;
             switch (t_area.index()) {
             case 0: {
                 auto a = std::get<0>(t_area);
@@ -33,17 +33,17 @@ namespace control{
                     t_size = a->temp_size();
                 }
                 t_h = h();
-                fl_rectf(0, 0, lable_w, h(), a->color());
+                fl_rectf(0, 0, lable_w, h(), a ? a->color() : FL_GRAY0);
                 break;
             }
             default: {
                 legal = true;
-                auto a = std::get<1>(t_area);
+                const auto& a = std::get<1>(t_area);
                 t_size = a->size();
-                fl_font(0, h() / 2.5);
+                fl_font(0, static_cast<Fl_Fontsize>(h() / 2.5));
                 t_h = h() / 2;
                 fl_rectf(0, 0, lable_w, h(), a->color());
-                fl_draw(a->name().c_str(), 0, h() / 1.7, w(), h() / 2.5, FL_ALIGN_RIGHT);
+                fl_draw(a->name().c_str(), 0, static_cast<int>(h() / 1.7), w(), static_cast<int>(h() / 2.5), FL_ALIGN_RIGHT);
                 break;
             }
             }
@@ -64,8 +64,8 @@ namespace control{
                 std::cout << ss.str() << std::endl;
 #endif // DEBUG
                 fl_draw(ss.str().c_str(), 0, 0, w(), t_h, FL_ALIGN_RIGHT);
-                fl_font(1, t_h / 1.8);
-                fl_draw("2", 0, 0, w(), t_h / 1.8, FL_ALIGN_RIGHT);
+                fl_font(1, static_cast<int>(t_h / 1.8));
+                fl_draw("2", 0, 0, w(), static_cast<int>(t_h / 1.8), FL_ALIGN_RIGHT);
                 //fl_draw((std::to_string(areas->temp->temp_size()) + " m^2").c_str(), x(), y(), w(), text_h, FL_ALIGN_RIGHT);
             } else {
                 fl_draw("--- ", 0, 0, w(), t_h, FL_ALIGN_RIGHT);

@@ -1,13 +1,13 @@
 ﻿#include "httplib.h"
-#include <FL/Enumerations.H>
 #include <FL/Fl.H>
-#include <FL/Fl_Box.H>
+#include <FL/Enumerations.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_PNG_Image.H>
 #include <FL/Fl_Shared_Image.H>
+#include <FL/Fl_Box.H>
 #include <FL/Fl_Scroll.H>
 #include <FL/Fl_Pack.H>
-#include <FL/Fl_Output.H>
+#include <FL/Fl_Input.H>
 #include <FL/Fl_Button.H>
 #include <FL/fl_draw.H>
 
@@ -57,8 +57,7 @@ int main() {
 
     while (true) {
         auto [poll, updated] = control::m->poll_futures();
-        control::m->redraw_flag |= updated;
-        if (control::m->redraw_flag) {
+        if (control::m->redraw_flag || updated) {
             control::win->redraw();
             //control::m->draw();
             if (control::areas->temp) {

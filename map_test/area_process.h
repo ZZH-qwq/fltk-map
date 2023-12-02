@@ -82,12 +82,12 @@ namespace area {
                 anchor = { 0,0 };
             } else if (anchor.y > EPSILON) {
                 // Have anchor - draw image in relative posision
-                image->draw((anchor.x - x1) / dx * display_w, (anchor.y - y1) / dy * display_h);
+                image->draw(static_cast<int>((anchor.x - x1) / dx * display_w), static_cast<int>((anchor.y - y1) / dy * display_h));
                 return;
             }
             if (!has_temp && is_fit(dx, dy)) {
                 generate_img(bbox1.x, bbox1.y, dx, dy, has_temp);
-                image->draw((bbox1.x - x1) / dx * display_w, (bbox1.y - y1) / dy * display_h);
+                image->draw(static_cast<int>((bbox1.x - x1) / dx * display_w), static_cast<int>((bbox1.y - y1) / dy * display_h));
 #if DEBUG
                 std::cout << "Anchor dropped" << std::endl;
 #endif // DEBUG
@@ -153,14 +153,14 @@ namespace area {
             double angle1 = theta + phi - M_PI, angle2 = theta - phi - M_PI;
             double lmax = std::min(w, h) / 12.0, lmin = std::min(w, h) / 30.0;
             double length = lmax * pow(1.05, -distance / 3) + lmin;
-            fl_line_style(FL_SOLID, length / 25 + 2);
+            fl_line_style(FL_SOLID, static_cast<int>(length / 25 + 2));
             double sx = ix + length * cos(angle1), sy = iy + length * sin(angle1);
             double ex = ix + length * cos(angle2), ey = iy + length * sin(angle2);
-            auto a = w / 2 + ix, b = h / 2 + iy;
+            auto a = w / 2.0 + ix, b = h / 2.0 + iy;
             fl_begin_line();
-            fl_vertex(w / 2 + sx, h / 2 + sy);
-            fl_vertex(w / 2 + ix, h / 2 + iy);
-            fl_vertex(w / 2 + ex, h / 2 + ey);
+            fl_vertex(w / 2.0 + sx, h / 2.0 + sy);
+            fl_vertex(w / 2.0 + ix, h / 2.0 + iy);
+            fl_vertex(w / 2.0 + ex, h / 2.0 + ey);
             fl_end_line();
         }
 
@@ -171,7 +171,7 @@ namespace area {
             Vec2d ray_start(x - 1e-15, y - 1e-15);
 
             // Iterate over each side of the polygon
-            for (int i = 0; i < polygon.size() - 1; i++) {
+            for (size_t i = 0; i < polygon.size() - 1; i++) {
                 auto& c1 = polygon[i];
                 auto& c2 = polygon[i + 1];
 
@@ -206,11 +206,11 @@ namespace area {
                 }
                 std::sort(iset.begin(), iset.end());
                 // Starting at the first filled point
-                size_t i = st ? 0 : (iset[0] - x1) * img_w / dx;
+                size_t i = static_cast<size_t>(st ? 0 : std::max((iset[0] - x1) * img_w / dx, 0.0));
                 // Refers to the index of filled period's end
-                int idx = st ? 0 : 1;
+                size_t idx = st ? 0 : 1;
                 for (; idx <= iset.size() && i < img_w; idx += 2) {
-                    size_t i_end = idx < iset.size() ? (iset[idx] - x1) * img_w / dx : img_w;
+                    size_t i_end = static_cast<size_t>(idx < iset.size() ? (iset[idx] - x1) * img_w / dx : img_w);
                     for (; i < i_end && i < img_w; i++) {
                         // Fill pixels in filled period
                         size_t target = (j * img_w + i) * 4;
@@ -222,12 +222,12 @@ namespace area {
                     if (idx >= iset.size() - 1 || i >= img_w) {
                         break;
                     }
-                    i = (iset[idx + 1] - x1) * img_w / dx;
+                    i = static_cast<size_t>((iset[idx + 1] - x1) * img_w / dx);
                 }
             }
             delete image;
-            Fl_RGB_Image img(img_data, img_w, img_h, 4);
-            image = img.copy(display_w, display_h);
+            Fl_RGB_Image img(img_data, static_cast<int>(img_w), static_cast<int>(img_h), 4);
+            image = img.copy(static_cast<int>(display_w), static_cast<int>(display_h));
         }
 
     public:
@@ -316,7 +316,7 @@ namespace area {
             if (polygon.size() < 3) {
                 return true;
             }
-            for (int i = 0; i < polygon.size() - 2; i++) {
+            for (size_t i = 0; i < polygon.size() - 2; i++) {
                 auto& c1 = polygon[i];
                 auto& c2 = polygon[i + 1];
                 if (is_intersect(c1, c2, polygon.back(), temp_point)) {
@@ -334,7 +334,7 @@ namespace area {
             if (!legal()) {
                 return false;
             }
-            for (int i = 1; i < polygon.size() - 1; i++) {
+            for (size_t i = 1; i < polygon.size() - 1; i++) {
                 auto& c1 = polygon[i];
                 auto& c2 = polygon[i + 1];
                 if (is_intersect(c1, c2, polygon.front(), temp_point)) {

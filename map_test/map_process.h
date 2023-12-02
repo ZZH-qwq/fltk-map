@@ -93,7 +93,7 @@ namespace map {
             lat += (ty - lat) * (1 - 1 / factor);
 
             // Re-calculating factors
-            tilts_per_side = 1 << z;
+            tilts_per_side = 1ull << z;
             pixels_per_side = k * tilts_per_side * tilts::TILT_SIZE;
 
             pos_correction();
@@ -125,8 +125,8 @@ namespace map {
         }
 
         static tilts::TiltId mercator_to_tilt_id(double x, double y, int z) {
-            int i = int(x * (1 << z));
-            int j = int(y * (1 << z));
+            int i = int(x * (1ull << z));
+            int j = int(y * (1ull << z));
             return tilts::TiltId{ .x = i, .y = j, .z = z };
         }
 
@@ -135,7 +135,7 @@ namespace map {
             //auto sjtu = std::apply(CT::wgs_to_gcj, sphere_to_mercator(-10, 10));
             //lng = get<0>(sjtu), lat = get<1>(sjtu);
             lng = lat = 0.233;
-            tilts_per_side = 1 << z;
+            tilts_per_side = 1ull << z;
             pixels_per_side = k * tilts_per_side * tilts::TILT_SIZE;
             focus_on(0.837324, 0.409268);
         }
