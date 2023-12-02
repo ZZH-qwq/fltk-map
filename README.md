@@ -1,18 +1,25 @@
 # fltk_map
 
 - [fltk\_map](#fltk_map)
-  - [功能预览/说明](#功能预览说明)
+  - [功能预览 / 说明](#功能预览--说明)
   - [运行说明](#运行说明)
     - [Visual Studio (推荐)](#visual-studio-推荐)
     - [WSL2 (Ubuntu-20.04)](#wsl2-ubuntu-2004)
     - [Msys2](#msys2)
 
 
-## 功能预览/说明
+本项目是使用 [`fltk`](https://github.com/fltk/fltk/) GUI 库, 以 C++ 语言编写的地图查看程序.
+
+程序的主要功能包括地图查看, 区域创建和管理, 面积计算与显示等等. 欢迎下载试用本项目, 以及对本项目提出建议 / 提交 issue 和 pr .
+
+能力所限, 许多功能实现的并不优雅 / 没能达到预想, 敬请谅解.
+
+
+## 功能预览 / 说明
 
 ![默认界面](res/img/default_view.png)
 
-本项目实现了以下功能:
+本项目主要实现了以下功能:
 
 <details> <summary> 创建和编辑区域 </summary>
 
@@ -21,7 +28,7 @@
 </details>
 
 - 默认即处于编辑区域的状态, 通过点击在地图对应位置添加顶点.
-- 通过右下角 `Confirm/New` 按钮确认或新建区域, 通过 `Undo` 按钮撤销上一个添加的点.
+- 通过右下角 `Confirm / New` 按钮确认或新建区域, 通过 `Undo` 按钮撤销上一个添加的点.
 - 编辑状态下实时显示区域面积 (若区域合法)
 - 在输入框中输入文本以修改区域名称, 留空以使用默认名称.
 
@@ -37,7 +44,7 @@
 - 根据区域数目, 自动生成滚动条.
 - 屏幕外的区域将自动显示方位指示器.
 
-<details> <summary> 缩放/移动地图 </summary>
+<details> <summary> 缩放 / 移动地图 </summary>
 
 ![缩放和移动](res/img/zoom.png)
 
@@ -54,9 +61,8 @@
 
 </details>
 
-- 点击区域显示中的 `Show/Hide` 按钮以切换显示状态.
+- 点击区域显示中的 `Show / Hide` 按钮以切换显示状态.
 - 点击 `Focus` 将视角移动至区域中心.
-
 
 
 ## 运行说明
@@ -74,7 +80,7 @@ Clone 本存储库, 然后使用 Visual Studio 打开 `fltk_map.sln` .
 下载 `res/wsl/map_main.cpp` 与 `map_test/httplib.h` 并将其放入目标文件夹, 然后使用如下命令编译:
 
 ```
-g++ -fdiagnostics-color=always -std=c++2a -g ./map_test.cpp -lfltk -lfltk_images -lfltk_images -lX11 -pthread -o {target}
+g++ -fdiagnostics-color=always -std=c++2a -g ./map_main.cpp -lfltk -lfltk_images -lfltk_images -lX11 -pthread -o {target}
 ```
 
 > 请注意, `res/wsl/map_main.cpp` 仅为测试使用, 可能不会与最新状态和功能保持同步.
