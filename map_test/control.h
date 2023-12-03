@@ -1,6 +1,5 @@
 #pragma once
 
-#include "tilts.h"
 #include "map_display.h"
 #include "area_display.h"
 
@@ -209,7 +208,7 @@ namespace control{
             c->new_area->take_focus();
         }
         static void new_area_cb(Fl_Widget* o, void* v) {
-            auto [r, g, b] = area::color_generator();
+            auto [r, g, b] = area::Polygon::color_generator();
             assert(!areas->temp);
             auto c = (Fl_New_Area_Control*)v;
             ++(c->count);
