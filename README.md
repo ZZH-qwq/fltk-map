@@ -6,13 +6,14 @@
     - [Visual Studio (推荐)](#visual-studio-推荐)
     - [WSL2 (Ubuntu-20.04)](#wsl2-ubuntu-2004)
     - [Msys2](#msys2)
+    - [Vscode](#vscode)
 
 
 本项目是使用 [`fltk`](https://github.com/fltk/fltk/) GUI 库, 以 C++ 语言编写的地图查看程序.
 
 程序的主要功能包括地图查看, 区域创建和管理, 面积计算与显示等等. 欢迎下载试用本项目, 以及对本项目提出建议 / 提交 issue 和 pr .
 
-能力所限, 您可能在本项目中遇见包括但不限于以下情形: 不优雅的实现方式 / 未完善的功能 / 混乱的逻辑 / 反常的交互 / 漫天飞舞的Bug / 神志不清的作者, 敬请谅解.
+能力所限, 您可能在本项目中遇见包括但不限于以下情形: 不优雅的实现方式 / 未完善的功能 / 混乱的逻辑 / 反常的交互 / 胡言乱语的注释 / 漫天飞舞的Bug / 神志不清的作者, 敬请谅解.
 
 于是, 这里是留给可能由于我的代码遭受精神创伤的你的补偿 (bushi
 ```
@@ -85,16 +86,22 @@ Clone 本存储库, 然后使用 Visual Studio 打开 `fltk_map.sln` .
 
 使用 apt-get 安装 `libfltk1.3-dev` 与 `libx11-dev`
 
-下载 `res/wsl/map_main.cpp` 与 `map_test/httplib.h` 并将其放入目标文件夹, 然后使用如下命令编译:
+Clone 本存储库, 然后在存储库目录下使用如下命令编译:
 
 ```
-g++ -std=c++2a -g ./map_main.cpp -lfltk -lfltk_images -lfltk_images -lX11 -pthread -o map_main
+g++ -std=c++2a -g ./map_test/map_main.cpp -lfltk -lfltk_images -lX11 -pthread -o map_main
 ```
-
-> 请注意, `res/wsl/map_main.cpp` 仅为测试使用, 可能不会与最新状态和功能保持同步.
 
 ### Msys2
 
-经过测试, 本项目不能通过 msys2 编译运行, 主要原因是 `libx11` 无法在 msys2 中安装
+与 [WSL2 (Ubuntu-20.04)](#wsl2-ubuntu-2004) 章节类似, Clone 本存储库然后使用如下命令编译:
 
-如果您可以成功使用 msys2 编译运行本项目, 欢迎 pull request / 直接联系我
+```
+g++ -std=c++20 -g .\map_test\map_main.cpp -lfltk -lfltk_images -lwsock32 -lws2_32 -lgdi32 -o map_main.exe
+```
+
+### Vscode
+
+本段是针对 Vscode 的额外说明. 首先您应当按照上方 [WSL2 (Ubuntu-20.04)](#wsl2-ubuntu-2004) / [Msys2](#msys2) 章节所述内容配置依赖项与下载对应文件, 之后您可以参考本项目目录 `res/tasks/*.json` 配置 Vscode 自动生成的 `./map_test/.vscode/tasks.json` 文件.
+
+`tasks.json` 应当会在运行一次 `map_test/map_main.cpp` 后自动生成. 请主要参考并修改 `"args"` 参数, 因为其它参数 (包括编译器路径与命令) 取决于个人的环境配置而有所不同.
