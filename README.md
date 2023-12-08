@@ -35,6 +35,8 @@
 
 本项目主要实现了以下功能:
 
+> 点击项目标题以展开 / 显示演示图片
+
 <details> <summary> 创建和编辑区域 </summary>
 
 ![创建区域](res/img/adding_points.gif)
